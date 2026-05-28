@@ -51,9 +51,8 @@ const getGoogleApiErrorResponse = (error: any) => {
   };
 };
 
-async function startServer() {
+export async function createApp() {
   const app = express();
-  const PORT = Number(process.env.PORT || 3000);
 
   app.use(express.json());
   app.use(cookieParser());
@@ -126,7 +125,7 @@ async function startServer() {
     }
   });
 
-  app.get(['/auth/callback', '/auth/callback/'], async (req, res) => {
+  app.get(['/auth/callback', '/auth/callback/', '/api/auth/callback', '/api/auth/callback/'], async (req, res) => {
     const { code } = req.query;
 
     if (!code) {
@@ -342,9 +341,18 @@ async function startServer() {
     });
   }
 
+  return app;
+}
+
+async function startServer() {
+  const app = await createApp();
+  const PORT = Number(process.env.PORT || 3000);
+
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`Servidor rodando em http://localhost:${PORT}`);
   });
 }
 
-startServer();
+if (!process.env.VERCEL) {
+  startServer();
+}
