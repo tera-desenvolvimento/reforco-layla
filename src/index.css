@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Sigmar&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Fredoka", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Sigmar", sans-serif;
+  
+  --color-brand-yellow: #F2B705;
+  --color-brand-pink: #F27DB4;
+  --color-brand-emerald: #30D98F;
+  --color-brand-blue: #4080F2;
+  --color-brand-orange: #F2913D;
+}
+
+@layer base {
+  body {
+    @apply transition-colors duration-300;
+  }
+}
+
+.text-stroke-white {
+  -webkit-text-stroke: 4px white;
+  paint-order: stroke fill;
+}
+
+.text-shadow-hero {
+  text-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+}
